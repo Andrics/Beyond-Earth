@@ -65,7 +65,7 @@ const Contact = () => {
                   </div>
                   <div className="contact-detail-content">
                     <h3>Name</h3>
-                    <p>- Muhammad Asad Ali</p>
+                    <p>Muhammad Asad Ali</p>
                   </div>
                 </div>
 
@@ -85,7 +85,42 @@ const Contact = () => {
                   </div>
                   <div className="contact-detail-content">
                     <h3>Registration ID</h3>
-                    <p>- 2380198</p>
+                    <p>2380198</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="contact-info-card" style={{ marginTop: '30px' }}>
+              <h2>Get in Touch</h2>
+              <div className="contact-details">
+                <div className="contact-detail-item">
+                  <div className="contact-icon">
+                    <FaUser />
+                  </div>
+                  <div className="contact-detail-content">
+                    <h3>Name</h3>
+                    <p>Burhanuddin Moiz Kanch</p>
+                  </div>
+                </div>
+
+                <div className="contact-detail-item">
+                  <div className="contact-icon">
+                    <FaEnvelope />
+                  </div>
+                  <div className="contact-detail-content">
+                    <h3>Email</h3>
+                    <p>bsse2380187@szabist.pk</p>
+                  </div>
+                </div>
+
+                <div className="contact-detail-item">
+                  <div className="contact-icon">
+                    <FaUser />
+                  </div>
+                  <div className="contact-detail-content">
+                    <h3>Registration ID</h3>
+                    <p>2380187</p>
                   </div>
                 </div>
               </div>

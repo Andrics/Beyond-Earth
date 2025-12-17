@@ -6,12 +6,20 @@
   top: 0;
   z-index: 1000;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+}
+
+.navbar .container {
+  max-width: 100%;
+  padding: 0 20px;
 }
 
 .nav-content {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 20px;
+  min-width: 0;
+  flex-wrap: nowrap;
 }
 
 .nav-logo {
@@ -21,36 +29,41 @@
   font-size: 1.5rem;
   font-weight: 800;
   text-decoration: none;
-  color: white;
   background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-right: 10px;
+}
+
+.nav-logo span:last-child {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .nav-logo span:last-child {
+    display: inline;
+  }
 }
 
 .logo-icon {
   font-size: 2rem;
   display: inline-flex;
   align-items: center;
-}
-
-.nav-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 1.5rem;
-  font-weight: 800;
-  text-decoration: none;
-  background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  flex-shrink: 0;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
   gap: 20px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  flex: 1;
+  justify-content: flex-start;
+  min-width: 0;
 }
 
 .nav-links a {
@@ -58,6 +71,9 @@
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
+  white-space: nowrap;
+  flex-shrink: 1;
+  font-size: 0.9rem;
 }
 
 .nav-links a:hover {
@@ -69,6 +85,49 @@
   font-weight: 600;
   display: inline-flex;
   align-items: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-size: 0.95rem;
+  margin-left: auto;
+}
+
+.nav-links .btn {
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  padding: 8px 16px;
+}
+
+@media (max-width: 1400px) {
+  .nav-logo {
+    font-size: 1.3rem;
+  }
+  
+  .nav-content {
+    gap: 15px;
+  }
+  
+  .nav-links {
+    gap: 15px;
+  }
+  
+  .nav-links a {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .nav-logo span:last-child {
+    display: none;
+  }
+  
+  .nav-content {
+    gap: 12px;
+  }
+  
+  .nav-links {
+    gap: 12px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -80,6 +139,21 @@
   .nav-links {
     flex-wrap: wrap;
     justify-content: center;
+    white-space: normal;
+    gap: 10px;
+  }
+
+  .nav-links a,
+  .nav-user {
+    white-space: normal;
+  }
+
+  .nav-user {
+    max-width: none;
+  }
+  
+  .nav-logo span:last-child {
+    display: inline;
   }
 }
 

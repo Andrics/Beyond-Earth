@@ -12,6 +12,7 @@ const PremiumContent = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('videos');
+  const [selectedImage, setSelectedImage] = useState(null);
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
@@ -106,47 +107,52 @@ const PremiumContent = () => {
           {content && (
             <>
               {activeTab === 'videos' && (
-                <div className="grid grid-3">
+                <div className="grid grid-2">
                   {content.videos.map(video => (
                     <div key={video.id} className="card">
                       <div style={{ 
                         width: '100%', 
-                        height: '200px', 
-                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        height: '0',
+                        paddingBottom: '56.25%',
+                        position: 'relative',
                         borderRadius: '10px',
                         marginBottom: '15px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '3rem',
-                        position: 'relative',
-                        overflow: 'hidden'
+                        overflow: 'hidden',
+                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
                       }}>
-                        <img 
-                          src={video.thumbnail} 
-                          alt={video.title}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                          onError={(e) => {
-                            e.target.style.display = 'none';
-                            e.target.parentElement.innerHTML = '<div style="font-size: 3rem;">🎬</div>';
-                          }}
-                        />
-                        <div style={{
-                          position: 'absolute',
-                          top: '50%',
-                          left: '50%',
-                          transform: 'translate(-50%, -50%)',
-                          background: 'rgba(0,0,0,0.7)',
-                          borderRadius: '50%',
-                          width: '60px',
-                          height: '60px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          fontSize: '2rem'
-                        }}>
-                          ▶
-                        </div>
+                        {video.youtubeId ? (
+                          <iframe
+                            width="100%"
+                            height="100%"
+                            src={`https://www.youtube.com/embed/${video.youtubeId}`}
+                            title={video.title}
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                            style={{
+                              position: 'absolute',
+                              top: 0,
+                              left: 0,
+                              width: '100%',
+                              height: '100%',
+                              borderRadius: '10px'
+                            }}
+                          />
+                        ) : (
+                          <div style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: '3rem'
+                          }}>
+                            🎬
+                          </div>
+                        )}
                       </div>
                       <h3 style={{ marginBottom: '10px', color: '#667eea' }}>{video.title}</h3>
                       <p style={{ color: '#d0d0d0', fontSize: '0.9rem' }}>{video.description}</p>
@@ -156,32 +162,110 @@ const PremiumContent = () => {
               )}
 
               {activeTab === 'images' && (
-                <div className="grid grid-3">
-                  {content.images.map(image => (
-                    <div key={image.id} className="card">
-                      <div style={{ 
-                        width: '100%', 
-                        height: '250px', 
-                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                        borderRadius: '10px',
-                        marginBottom: '15px',
-                        overflow: 'hidden'
-                      }}>
+                <>
+                  <div className="grid grid-3">
+                    {content.images.map(image => (
+                      <div key={image.id} className="card" style={{ cursor: 'pointer' }} onClick={() => setSelectedImage(image)}>
+                        <div style={{ 
+                          width: '100%', 
+                          height: '250px', 
+                          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                          borderRadius: '10px',
+                          marginBottom: '15px',
+                          overflow: 'hidden',
+                          transition: 'transform 0.3s ease'
+                        }}>
+                          <img 
+                            src={image.url} 
+                            alt={image.title}
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                              e.target.parentElement.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; font-size: 3rem;">🖼️</div>';
+                            }}
+                          />
+                        </div>
+                        <h3 style={{ marginBottom: '10px', color: '#f093fb' }}>{image.title}</h3>
+                        <p style={{ color: '#d0d0d0', fontSize: '0.9rem' }}>{image.description}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  {selectedImage && (
+                    <div 
+                      style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        backgroundColor: 'rgba(0, 0, 0, 0.95)',
+                        zIndex: 10000,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        padding: '20px',
+                        cursor: 'pointer'
+                      }}
+                      onClick={() => setSelectedImage(null)}
+                    >
+                      <div 
+                        style={{
+                          maxWidth: '90%',
+                          maxHeight: '90%',
+                          position: 'relative'
+                        }}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <button
+                          onClick={() => setSelectedImage(null)}
+                          style={{
+                            position: 'absolute',
+                            top: '-40px',
+                            right: '0',
+                            background: 'rgba(255, 255, 255, 0.2)',
+                            border: 'none',
+                            color: 'white',
+                            fontSize: '2rem',
+                            width: '40px',
+                            height: '40px',
+                            borderRadius: '50%',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            zIndex: 10001
+                          }}
+                        >
+                          ×
+                        </button>
                         <img 
-                          src={image.url} 
-                          alt={image.title}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          src={selectedImage.url} 
+                          alt={selectedImage.title}
+                          style={{
+                            maxWidth: '100%',
+                            maxHeight: '90vh',
+                            objectFit: 'contain',
+                            borderRadius: '10px'
+                          }}
                           onError={(e) => {
                             e.target.style.display = 'none';
-                            e.target.parentElement.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; font-size: 3rem;">🖼️</div>';
+                            e.target.parentElement.innerHTML = '<div style="color: white; text-align: center; font-size: 1.5rem;">Image failed to load</div>';
                           }}
                         />
+                        <div style={{ 
+                          color: 'white', 
+                          textAlign: 'center', 
+                          marginTop: '20px',
+                          maxWidth: '800px'
+                        }}>
+                          <h2 style={{ marginBottom: '10px', color: '#f093fb' }}>{selectedImage.title}</h2>
+                          <p style={{ color: '#d0d0d0', fontSize: '1.1rem' }}>{selectedImage.description}</p>
+                        </div>
                       </div>
-                      <h3 style={{ marginBottom: '10px', color: '#f093fb' }}>{image.title}</h3>
-                      <p style={{ color: '#d0d0d0', fontSize: '0.9rem' }}>{image.description}</p>
                     </div>
-                  ))}
-                </div>
+                  )}
+                </>
               )}
 
               {activeTab === 'facts' && (
