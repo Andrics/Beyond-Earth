@@ -3,6 +3,23 @@ const auth = require('../middleware/auth');
 const Booking = require('../models/Booking');
 const router = express.Router();
 
+// Helper function to generate random coordinates
+const generateRandomCoordinates = () => {
+  // Generate random latitude (-90 to 90)
+  const latitude = (Math.random() * 180 - 90).toFixed(4);
+  // Generate random longitude (-180 to 180)
+  const longitude = (Math.random() * 360 - 180).toFixed(4);
+  // Generate random altitude (100 to 500 km)
+  const altitude = Math.floor(Math.random() * 400 + 100);
+  
+  return {
+    latitude: parseFloat(latitude),
+    longitude: parseFloat(longitude),
+    altitude,
+    lastUpdated: new Date()
+  };
+};
+
 // Create booking
 router.post('/', auth, async (req, res) => {
   try {
@@ -13,12 +30,7 @@ router.post('/', auth, async (req, res) => {
       flightDate: new Date(flightDate),
       additionalActivities: additionalActivities || [],
       totalPrice,
-      spaceshipLocation: {
-        latitude: 0,
-        longitude: 0,
-        altitude: 0,
-        lastUpdated: new Date()
-      }
+      spaceshipLocation: generateRandomCoordinates()
     });
 
     await booking.save();
@@ -37,6 +49,17 @@ router.get('/my-bookings', auth, async (req, res) => {
     const bookings = await Booking.find({ user: req.user._id })
       .populate('user', 'name email')
       .sort({ createdAt: -1 });
+    
+    // Generate random coordinates for bookings that have 0,0 coordinates
+    for (const booking of bookings) {
+      if (booking.spaceshipLocation && 
+          booking.spaceshipLocation.latitude === 0 && 
+          booking.spaceshipLocation.longitude === 0) {
+        booking.spaceshipLocation = generateRandomCoordinates();
+        await booking.save();
+      }
+    }
+    
     res.json(bookings);
   } catch (error) {
     console.error(error);
@@ -96,6 +119,26 @@ router.put('/:id', auth, async (req, res) => {
 
     await booking.save();
     res.json(booking);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Delete booking (cancel and remove)
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    const booking = await Booking.findOne({
+      _id: req.params.id,
+      user: req.user._id
+    });
+
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    await Booking.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Booking cancelled and deleted successfully' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });

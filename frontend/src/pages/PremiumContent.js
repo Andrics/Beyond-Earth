@@ -202,10 +202,12 @@ const PremiumContent = () => {
                         backgroundColor: 'rgba(0, 0, 0, 0.95)',
                         zIndex: 10000,
                         display: 'flex',
+                        flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        padding: '20px',
-                        cursor: 'pointer'
+                        padding: '40px 20px',
+                        cursor: 'pointer',
+                        overflow: 'auto'
                       }}
                       onClick={() => setSelectedImage(null)}
                     >
@@ -213,28 +215,41 @@ const PremiumContent = () => {
                         style={{
                           maxWidth: '90%',
                           maxHeight: '90%',
-                          position: 'relative'
+                          position: 'relative',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center'
                         }}
                         onClick={(e) => e.stopPropagation()}
                       >
                         <button
                           onClick={() => setSelectedImage(null)}
                           style={{
-                            position: 'absolute',
-                            top: '-40px',
-                            right: '0',
+                            position: 'fixed',
+                            top: '100px',
+                            right: '30px',
                             background: 'rgba(255, 255, 255, 0.2)',
                             border: 'none',
                             color: 'white',
-                            fontSize: '2rem',
-                            width: '40px',
-                            height: '40px',
+                            fontSize: '2.5rem',
+                            width: '50px',
+                            height: '50px',
                             borderRadius: '50%',
                             cursor: 'pointer',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            zIndex: 10001
+                            zIndex: 10002,
+                            transition: 'all 0.3s ease'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.target.style.background = 'rgba(255, 255, 255, 0.3)';
+                            e.target.style.transform = 'scale(1.1)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+                            e.target.style.transform = 'scale(1)';
                           }}
                         >
                           ×
@@ -244,9 +259,10 @@ const PremiumContent = () => {
                           alt={selectedImage.title}
                           style={{
                             maxWidth: '100%',
-                            maxHeight: '90vh',
+                            maxHeight: '70vh',
                             objectFit: 'contain',
-                            borderRadius: '10px'
+                            borderRadius: '10px',
+                            marginBottom: '30px'
                           }}
                           onError={(e) => {
                             e.target.style.display = 'none';
@@ -256,11 +272,24 @@ const PremiumContent = () => {
                         <div style={{ 
                           color: 'white', 
                           textAlign: 'center', 
-                          marginTop: '20px',
-                          maxWidth: '800px'
+                          maxWidth: '800px',
+                          width: '100%'
                         }}>
-                          <h2 style={{ marginBottom: '10px', color: '#f093fb' }}>{selectedImage.title}</h2>
-                          <p style={{ color: '#d0d0d0', fontSize: '1.1rem' }}>{selectedImage.description}</p>
+                          <h2 style={{ 
+                            marginBottom: '15px', 
+                            color: '#f093fb',
+                            fontSize: '2rem',
+                            fontWeight: '700'
+                          }}>
+                            {selectedImage.title}
+                          </h2>
+                          <p style={{ 
+                            color: '#d0d0d0', 
+                            fontSize: '1.2rem',
+                            lineHeight: '1.8'
+                          }}>
+                            {selectedImage.description}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -283,46 +312,68 @@ const PremiumContent = () => {
               )}
 
               {activeTab === 'documentaries' && (
-                <div className="grid grid-2">
+                <div style={{ maxWidth: '900px', margin: '0 auto' }}>
                   {content.documentaries.map(doc => (
-                    <div key={doc.id} className="card">
+                    <div key={doc.id} className="card" style={{ marginBottom: '30px' }}>
                       <div style={{ 
-                        width: '100%', 
-                        height: '200px', 
-                        background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-                        borderRadius: '10px',
-                        marginBottom: '15px',
                         display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '3rem',
-                        position: 'relative',
-                        overflow: 'hidden'
+                        gap: '30px',
+                        alignItems: 'flex-start',
+                        flexWrap: 'wrap'
                       }}>
-                        <img 
-                          src={doc.thumbnail} 
-                          alt={doc.title}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                          onError={(e) => {
-                            e.target.style.display = 'none';
-                            e.target.parentElement.innerHTML = '<div style="font-size: 3rem;">📹</div>';
-                          }}
-                        />
-                        <div style={{
-                          position: 'absolute',
-                          bottom: '10px',
-                          right: '10px',
-                          background: 'rgba(0,0,0,0.8)',
-                          padding: '5px 10px',
-                          borderRadius: '5px',
-                          color: 'white',
-                          fontSize: '0.9rem'
+                        <div style={{ 
+                          width: '300px',
+                          minWidth: '250px',
+                          height: '200px', 
+                          background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                          borderRadius: '10px',
+                          flexShrink: 0,
+                          overflow: 'hidden'
                         }}>
-                          {doc.duration}
+                          <img 
+                            src={doc.thumbnail} 
+                            alt={doc.title}
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                              e.target.parentElement.style.display = 'flex';
+                              e.target.parentElement.style.alignItems = 'center';
+                              e.target.parentElement.style.justifyContent = 'center';
+                              e.target.parentElement.innerHTML = '<div style="font-size: 3rem; color: white;">📹</div>';
+                            }}
+                          />
+                        </div>
+                        <div style={{ flex: 1, minWidth: '250px' }}>
+                          <h3 style={{ 
+                            marginBottom: '15px', 
+                            color: '#f093fb',
+                            fontSize: '1.8rem',
+                            fontWeight: '700'
+                          }}>
+                            {doc.title}
+                          </h3>
+                          <p style={{ 
+                            color: '#d0d0d0', 
+                            fontSize: '1.1rem',
+                            lineHeight: '1.8',
+                            marginBottom: '20px'
+                          }}>
+                            {doc.description}
+                          </p>
+                          <a
+                            href={doc.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn btn-primary"
+                            style={{
+                              display: 'inline-block',
+                              textDecoration: 'none'
+                            }}
+                          >
+                            Read More
+                          </a>
                         </div>
                       </div>
-                      <h3 style={{ marginBottom: '10px', color: '#f093fb' }}>{doc.title}</h3>
-                      <p style={{ color: '#d0d0d0', fontSize: '0.9rem' }}>{doc.description}</p>
                     </div>
                   ))}
                 </div>

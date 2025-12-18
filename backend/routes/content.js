@@ -20,87 +20,45 @@ router.get('/premium', auth, async (req, res) => {
       videos: [
         {
           id: 1,
-          title: 'The Milky Way Galaxy',
-          description: 'Explore our galaxy in stunning detail from NASA',
-          thumbnail: 'https://img.youtube.com/vi/mO3X4f7Qy6c/maxresdefault.jpg',
-          youtubeId: 'mO3X4f7Qy6c'
-        },
-        {
-          id: 2,
           title: 'Mars Surface Exploration',
           description: 'Exclusive footage from Mars rovers and landers',
           thumbnail: 'https://img.youtube.com/vi/7zpojhD4hpI/maxresdefault.jpg',
           youtubeId: '7zpojhD4hpI'
         },
         {
-          id: 3,
-          title: 'Saturn\'s Rings Up Close',
-          description: 'Stunning views of Saturn\'s magnificent rings from Cassini',
-          thumbnail: 'https://img.youtube.com/vi/68vxYRAc8Q8/maxresdefault.jpg',
-          youtubeId: '68vxYRAc8Q8'
-        },
-        {
-          id: 4,
-          title: 'James Webb Space Telescope Reveals Universe',
-          description: 'Historic first images from the most powerful space telescope',
-          thumbnail: 'https://img.youtube.com/vi/L3uOcX7xUqA/maxresdefault.jpg',
-          youtubeId: 'L3uOcX7xUqA'
-        },
-        {
-          id: 5,
+          id: 2,
           title: 'Black Holes Explained',
           description: 'Understanding the mysteries of black holes',
           thumbnail: 'https://img.youtube.com/vi/QqsLTNkzvaY/maxresdefault.jpg',
           youtubeId: 'QqsLTNkzvaY'
         },
         {
-          id: 6,
+          id: 3,
           title: 'International Space Station Tour',
           description: 'A complete tour of the ISS with astronauts',
           thumbnail: 'https://img.youtube.com/vi/SGP6Y0Pnhe4/maxresdefault.jpg',
           youtubeId: 'SGP6Y0Pnhe4'
         },
         {
-          id: 7,
+          id: 4,
           title: 'Jupiter\'s Great Red Spot',
           description: 'Close-up views of Jupiter\'s massive storm',
           thumbnail: 'https://img.youtube.com/vi/PtkqwslbLY8/maxresdefault.jpg',
           youtubeId: 'PtkqwslbLY8'
         },
         {
-          id: 8,
+          id: 5,
           title: 'The Moon Landing: Apollo 11',
           description: 'Historic footage of the first moon landing',
           thumbnail: 'https://img.youtube.com/vi/S9HdPi9Ikhk/maxresdefault.jpg',
           youtubeId: 'S9HdPi9Ikhk'
         },
         {
-          id: 9,
-          title: 'Nebulae: Cosmic Clouds of Creation',
-          description: 'Beautiful nebulas where stars are born',
-          thumbnail: 'https://img.youtube.com/vi/6tmbeLTHC_0/maxresdefault.jpg',
-          youtubeId: '6tmbeLTHC_0'
-        },
-        {
-          id: 10,
+          id: 6,
           title: 'Solar Flares and Space Weather',
           description: 'The Sun\'s powerful eruptions and their effects',
           thumbnail: 'https://img.youtube.com/vi/oOXVZo7KikE/maxresdefault.jpg',
           youtubeId: 'oOXVZo7KikE'
-        },
-        {
-          id: 11,
-          title: 'Voyager Spacecraft Journey',
-          description: 'The incredible journey of Voyager spacecraft through our solar system',
-          thumbnail: 'https://img.youtube.com/vi/4jMQg8v2YrY/maxresdefault.jpg',
-          youtubeId: '4jMQg8v2YrY'
-        },
-        {
-          id: 12,
-          title: 'Discovering Exoplanets',
-          description: 'Discovering planets beyond our solar system with NASA missions',
-          thumbnail: 'https://img.youtube.com/vi/y8Xp7USGXes/maxresdefault.jpg',
-          youtubeId: 'y8Xp7USGXes'
         }
       ],
       images: [
@@ -108,25 +66,25 @@ router.get('/premium', auth, async (req, res) => {
           id: 1,
           title: 'Pillars of Creation',
           description: 'Iconic Hubble Space Telescope image of star-forming region in the Eagle Nebula',
-          url: 'https://stsci-opo.org/STScI-01EVT5Z8C8C3QJ8F6KZ9XKZ9XK.jpg'
+          url: 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=1200&h=800&fit=crop'
         },
         {
           id: 2,
           title: 'Jupiter\'s Great Red Spot',
           description: 'Detailed view of Jupiter\'s massive storm captured by Juno spacecraft',
-          url: 'https://www.nasa.gov/sites/default/files/thumbnails/image/pia21974.jpg'
+          url: 'https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=1200&h=800&fit=crop'
         },
         {
           id: 3,
           title: 'Andromeda Galaxy',
           description: 'Our nearest galactic neighbor captured by Hubble Space Telescope',
-          url: 'https://imgsrc.hubblesite.org/hvi/uploads/image_file/image_attachment/30257/STSCI-H-p1720a-f-3840x2160.png'
+          url: 'https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=1200&h=800&fit=crop'
         },
         {
           id: 4,
           title: 'Saturn\'s Rings',
           description: 'Stunning view of Saturn\'s rings from Cassini spacecraft',
-          url: 'https://www.nasa.gov/sites/default/files/thumbnails/image/pia12567.jpg'
+          url: 'https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=1200&h=800&fit=crop'
         },
         {
           id: 5,
@@ -138,31 +96,31 @@ router.get('/premium', auth, async (req, res) => {
           id: 6,
           title: 'Earthrise',
           description: 'Iconic view of Earth rising over the Moon from Apollo 8',
-          url: 'https://www.nasa.gov/sites/default/files/thumbnails/image/as08-14-2383.jpg'
+          url: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=1200&h=800&fit=crop'
         },
         {
           id: 7,
           title: 'Carina Nebula',
           description: 'James Webb Space Telescope image of the Carina Nebula',
-          url: 'https://www.nasa.gov/sites/default/files/thumbnails/image/main_image_star-forming_region_carina_nircam_final-5mb.jpg'
+          url: 'https://images.unsplash.com/photo-1465101162946-4377e57745c3?w=1200&h=800&fit=crop'
         },
         {
           id: 8,
           title: 'International Space Station',
           description: 'The ISS orbiting Earth, captured from a spacecraft',
-          url: 'https://www.nasa.gov/sites/default/files/thumbnails/image/iss062e354388.jpg'
+          url: 'https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=1200&h=800&fit=crop'
         },
         {
           id: 9,
           title: 'Solar Corona',
           description: 'The Sun\'s corona during a total solar eclipse',
-          url: 'https://www.nasa.gov/sites/default/files/thumbnails/image/eclipse2017_20170821_1200.jpg'
+          url: 'https://images.unsplash.com/photo-1516339901601-2e1b62dc0c50?w=1200&h=800&fit=crop'
         },
         {
           id: 10,
           title: 'Helix Nebula',
           description: 'The Eye of God - a planetary nebula 700 light-years away',
-          url: 'https://imgsrc.hubblesite.org/hvi/uploads/image_file/image_attachment/30257/STSCI-H-p1720a-f-3840x2160.png'
+          url: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1200&h=800&fit=crop'
         },
         {
           id: 11,
@@ -174,7 +132,7 @@ router.get('/premium', auth, async (req, res) => {
           id: 12,
           title: 'Black Hole Shadow',
           description: 'First image of a black hole\'s event horizon from Event Horizon Telescope',
-          url: 'https://www.nasa.gov/sites/default/files/thumbnails/image/blackhole.png'
+          url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop'
         }
       ],
       facts: [
@@ -292,17 +250,59 @@ router.get('/premium', auth, async (req, res) => {
       documentaries: [
         {
           id: 1,
-          title: 'The Search for Life Beyond Earth',
-          description: 'Exploring the possibility of life on other planets',
-          duration: '45 minutes',
-          thumbnail: 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=800'
+          title: 'Cosmos: A Spacetime Odyssey - National Geographic',
+          description: 'Neil deGrasse Tyson hosts this epic journey through space and time, exploring the universe from the Big Bang to the search for life on other planets. A visually stunning exploration of our cosmic origins.',
+          url: 'https://www.youtube.com/results?search_query=Cosmos+A+Spacetime+Odyssey+Neil+deGrasse+Tyson',
+          thumbnail: 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=800&h=600&fit=crop'
         },
         {
           id: 2,
-          title: 'Colonizing Mars: The Future',
-          description: 'A deep dive into Mars colonization plans',
-          duration: '60 minutes',
-          thumbnail: 'https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=800'
+          title: 'The Planets - BBC Documentary',
+          description: 'A BBC documentary series exploring the planets of our solar system. From the scorching surface of Venus to the icy moons of Jupiter, discover the incredible worlds that orbit our Sun.',
+          url: 'https://www.youtube.com/results?search_query=The+Planets+BBC+Documentary',
+          thumbnail: 'https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=800&h=600&fit=crop'
+        },
+        {
+          id: 3,
+          title: 'Apollo 11: First Steps Edition - NASA',
+          description: 'Experience the historic Apollo 11 mission that first landed humans on the Moon. This documentary uses restored archival footage to tell the complete story of humanity\'s greatest adventure.',
+          url: 'https://www.youtube.com/results?search_query=Apollo+11+Documentary+NASA',
+          thumbnail: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=800&h=600&fit=crop'
+        },
+        {
+          id: 4,
+          title: 'The Universe - History Channel',
+          description: 'A comprehensive History Channel series exploring the mysteries of the cosmos. From black holes to the search for alien life, journey through the vastness of space and time.',
+          url: 'https://www.youtube.com/results?search_query=The+Universe+History+Channel+Documentary',
+          thumbnail: 'https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=800&h=600&fit=crop'
+        },
+        {
+          id: 5,
+          title: 'Mars Exploration - NASA Documentary',
+          description: 'Follow NASA\'s journey to Mars through the eyes of the Perseverance rover and other missions. Discover the challenges and discoveries of exploring the Red Planet.',
+          url: 'https://www.youtube.com/results?search_query=Mars+Exploration+NASA+Documentary',
+          thumbnail: 'https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=800&h=600&fit=crop'
+        },
+        {
+          id: 6,
+          title: 'Wonders of the Solar System - BBC',
+          description: 'Professor Brian Cox takes viewers on a journey through our solar system, exploring the beauty and science of planets, moons, and asteroids. Discover the forces that shaped our cosmic neighborhood.',
+          url: 'https://www.youtube.com/results?search_query=Wonders+of+the+Solar+System+Brian+Cox',
+          thumbnail: 'https://images.unsplash.com/photo-1465101162946-4377e57745c3?w=800&h=600&fit=crop'
+        },
+        {
+          id: 7,
+          title: 'James Webb Space Telescope - NASA',
+          description: 'Explore the James Webb Space Telescope and its groundbreaking discoveries. Learn about the most powerful space telescope ever built and its mission to see the first galaxies.',
+          url: 'https://www.nasa.gov/mission_pages/webb/main/index.html',
+          thumbnail: 'https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=800&h=600&fit=crop'
+        },
+        {
+          id: 8,
+          title: 'Black Holes: The Edge of All We Know - PBS',
+          description: 'Follow scientists as they attempt to photograph a black hole for the first time. This documentary explores the Event Horizon Telescope project and the mysteries of black holes.',
+          url: 'https://www.youtube.com/results?search_query=Black+Holes+The+Edge+of+All+We+Know+PBS',
+          thumbnail: 'https://images.unsplash.com/photo-1516339901601-2e1b62dc0c50?w=800&h=600&fit=crop'
         }
       ]
     };

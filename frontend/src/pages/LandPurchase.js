@@ -48,6 +48,21 @@ const LandPurchase = () => {
     }
   };
 
+  const handleDeleteLand = async (landId) => {
+    if (!window.confirm('Are you sure you want to delete this land purchase? This will permanently remove the ownership certificate. This action cannot be undone.')) return;
+
+    try {
+      await api.delete(`/land/${landId}`);
+      setSuccess('Land purchase deleted successfully');
+      fetchLandPurchases();
+      setTimeout(() => setSuccess(''), 3000);
+    } catch (error) {
+      console.error('Error deleting land purchase:', error);
+      setError('Failed to delete land purchase. Please try again.');
+      setTimeout(() => setError(''), 3000);
+    }
+  };
+
   const getLandPrice = () => {
     const selectedType = landTypes.find(t => t.value === landType);
     return selectedType ? selectedType.price * size : 0;
@@ -277,6 +292,20 @@ const LandPurchase = () => {
                             </p>
                           </div>
                         )}
+                        
+                        <button
+                          onClick={() => handleDeleteLand(land._id)}
+                          className="btn btn-outline"
+                          style={{ 
+                            marginTop: '15px', 
+                            width: '100%',
+                            background: 'rgba(239, 83, 80, 0.1)',
+                            borderColor: '#ef5350',
+                            color: '#ef5350'
+                          }}
+                        >
+                          Delete Land Purchase
+                        </button>
                       </div>
                     );
                   })}

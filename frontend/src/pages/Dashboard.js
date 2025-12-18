@@ -107,14 +107,15 @@ const Dashboard = () => {
   };
 
   const handleCancelBooking = async (bookingId) => {
-    if (!window.confirm('Are you sure you want to cancel this booking?')) return;
+    if (!window.confirm('Are you sure you want to cancel and delete this booking? This action cannot be undone.')) return;
 
     try {
-      await api.put(`/bookings/${bookingId}`, { status: 'cancelled' });
+      await api.delete(`/bookings/${bookingId}`);
       await fetchBookings();
       await fetchCountdown();
     } catch (error) {
       console.error('Error cancelling booking:', error);
+      alert('Failed to cancel booking. Please try again.');
     }
   };
 
@@ -265,8 +266,8 @@ const Dashboard = () => {
                     <div style={{ marginTop: '15px', padding: '10px', background: 'rgba(102, 126, 234, 0.1)', borderRadius: '8px' }}>
                       <strong style={{ color: '#667eea' }}>Spaceship Location:</strong>
                       <p style={{ color: '#d0d0d0', fontSize: '0.9rem', marginTop: '5px' }}>
-                        Lat: {booking.spaceshipLocation.latitude.toFixed(4)}°,
-                        Long: {booking.spaceshipLocation.longitude.toFixed(4)}°
+                        Lat: {booking.spaceshipLocation.latitude?.toFixed(4) || '0.0000'}°,
+                        Long: {booking.spaceshipLocation.longitude?.toFixed(4) || '0.0000'}°
                       </p>
                     </div>
                   )}
