@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import api from '../services/api';
 import StarsBackground from '../components/StarsBackground';
@@ -10,6 +10,16 @@ const Subscription = () => {
   const [processing, setProcessing] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
   const { fetchUser } = useContext(AuthContext);
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    // Check if user was redirected from canceled checkout
+    if (searchParams.get('canceled') === 'true') {
+      setMessage({ type: 'error', text: 'Payment was canceled. You can try again anytime.' });
+      // Remove the query parameter from URL
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  }, [searchParams]);
 
   const plans = [
     {
@@ -55,14 +65,20 @@ const Subscription = () => {
     setMessage({ type: '', text: '' });
 
     try {
-      await api.post('/subscriptions', { plan: planId });
-      setMessage({ type: 'success', text: 'Subscription activated successfully!' });
-      await fetchUser();
-      fetchSubscriptionStatus();
+      // Create Stripe checkout session
+      const response = await api.post('/subscriptions/create-checkout-session', { plan: planId });
+      // Redirect to Stripe Checkout
+      if (response.data && response.data.url) {
+        window.location.href = response.data.url;
+      } else {
+        throw new Error('Invalid response from server');
+      }
     } catch (error) {
-      setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to activate subscription' });
-    } finally {
       setProcessing(false);
+      console.error('Subscription error:', error);
+      const errorMessage = error.response?.data?.message || 
+                          (error.response?.status === 404 ? 'Route not found. Please restart the backend server.' : 'Failed to initiate checkout');
+      setMessage({ type: 'error', text: errorMessage });
     }
   };
 

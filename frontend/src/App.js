@@ -8,6 +8,7 @@ import Register from './pages/Register';
 import Booking from './pages/Booking';
 import Activities from './pages/Activities';
 import Subscription from './pages/Subscription';
+import SubscriptionSuccess from './pages/SubscriptionSuccess';
 import Dashboard from './pages/Dashboard';
 import LandPurchase from './pages/LandPurchase';
 import PremiumContent from './pages/PremiumContent';
@@ -29,6 +30,7 @@ function App() {
             <Route path="/activities" element={<Activities />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/subscription" element={<PrivateRoute><Subscription /></PrivateRoute>} />
+            <Route path="/subscription-success" element={<PrivateRoute><SubscriptionSuccess /></PrivateRoute>} />
             <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
             <Route path="/land-purchase" element={<PrivateRoute><LandPurchase /></PrivateRoute>} />
             <Route path="/premium-content" element={<PrivateRoute><PremiumContent /></PrivateRoute>} />

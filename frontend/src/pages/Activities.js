@@ -29,7 +29,7 @@ const Activities = () => {
     try {
       const response = await api.get('/activities');
       if (Array.isArray(response.data) && response.data.length > 0) {
-        setActivities(response.data);
+      setActivities(response.data);
       } else {
         setActivities([]);
       }
@@ -187,7 +187,7 @@ const Activities = () => {
               <h1 className="section-title" style={{ marginBottom: '20px' }}>Explore Our Activities</h1>
               <p style={{ color: '#d0d0d0', fontSize: '1.2rem', lineHeight: '1.8', maxWidth: '700px', margin: '0 auto' }}>
                 Enhance your Mars journey with these carefully curated experiences. Each activity is designed to deepen your connection with space exploration and create lasting memories of your time beyond Earth.
-              </p>
+          </p>
             </header>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '60px' }}>
@@ -293,7 +293,7 @@ const Activities = () => {
                               fontWeight: '700',
                               marginBottom: '5px'
                             }}>
-                              ${activity.price.toLocaleString()}
+                    ${activity.price.toLocaleString()}
                             </div>
                             <div style={{ 
                               color: '#b0b0b0', 
@@ -308,7 +308,7 @@ const Activities = () => {
                   </section>
                 );
               })}
-            </div>
+                </div>
 
             <footer style={{ 
               textAlign: 'center', 
@@ -347,7 +347,7 @@ const Activities = () => {
                     </Link>
                     <Link to="/login" className="btn btn-outline">
                       Log In
-                    </Link>
+                  </Link>
                   </>
                 )}
               </div>

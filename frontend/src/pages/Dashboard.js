@@ -138,34 +138,34 @@ const Dashboard = () => {
             <FaUserAstronaut /> Welcome back, {user?.name}!
           </p>
 
-          <div className="card" style={{ maxWidth: '800px', margin: '0 auto 50px', textAlign: 'center' }}>
-            <h2 style={{ marginBottom: '20px', color: '#667eea' }}>Next Mars Flight</h2>
-            <div className="countdown-grid">
-              <div className="countdown-item">
+            <div className="card" style={{ maxWidth: '800px', margin: '0 auto 50px', textAlign: 'center' }}>
+              <h2 style={{ marginBottom: '20px', color: '#667eea' }}>Next Mars Flight</h2>
+              <div className="countdown-grid">
+                <div className="countdown-item">
                 <div className="countdown-number">{countdown.days}</div>
-                <div className="countdown-label">Days</div>
-              </div>
-              <div className="countdown-item">
+                  <div className="countdown-label">Days</div>
+                </div>
+                <div className="countdown-item">
                 <div className="countdown-number">{countdown.hours}</div>
-                <div className="countdown-label">Hours</div>
-              </div>
-              <div className="countdown-item">
+                  <div className="countdown-label">Hours</div>
+                </div>
+                <div className="countdown-item">
                 <div className="countdown-number">{countdown.minutes}</div>
-                <div className="countdown-label">Minutes</div>
-              </div>
-              <div className="countdown-item">
+                  <div className="countdown-label">Minutes</div>
+                </div>
+                <div className="countdown-item">
                 <div className="countdown-number">{countdown.seconds}</div>
-                <div className="countdown-label">Seconds</div>
+                  <div className="countdown-label">Seconds</div>
+                </div>
               </div>
-            </div>
-            <p style={{ marginTop: '20px', color: '#d0d0d0' }}>
+              <p style={{ marginTop: '20px', color: '#d0d0d0' }}>
               {nextFlightDate ? (
                 <>Flight Date: {formatDate(nextFlightDate)}</>
               ) : (
                 <>No upcoming flights booked yet.</>
               )}
-            </p>
-          </div>
+              </p>
+            </div>
 
           <div className="dashboard-actions grid grid-2" style={{ marginBottom: '50px' }}>
             <Link to="/booking" className="card dashboard-action-card" style={{ textDecoration: 'none', textAlign: 'center' }}>

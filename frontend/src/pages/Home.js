@@ -75,7 +75,7 @@ const Home = () => {
                 <div className="feature-icon">{feature.icon}</div>
                 <h3>{feature.title}</h3>
                 <p>{feature.description}</p>
-              </div>
+            </div>
             ))}
           </div>
         </div>
@@ -121,7 +121,7 @@ const Home = () => {
                 <div className="activity-icon">{activity.icon}</div>
                 <h3>{activity.title}</h3>
                 <p>{activity.description}</p>
-              </div>
+            </div>
             ))}
           </div>
           <div style={{ textAlign: 'center', marginTop: '30px', maxWidth: '800px', marginLeft: 'auto', marginRight: 'auto' }}>

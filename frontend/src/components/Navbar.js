@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { FaRocket, FaUserAstronaut } from 'react-icons/fa';
@@ -8,10 +8,18 @@ import './Navbar.css';
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
     logout();
     navigate('/');
+  };
+
+  const isActive = (path) => {
+    if (path === '/') {
+      return location.pathname === '/';
+    }
+    return location.pathname.startsWith(path);
   };
 
   return (
@@ -34,18 +42,23 @@ const Navbar = () => {
           </Link>
           
           <div className="nav-links">
-            <Link to="/">Home</Link>
-            <Link to="/activities">Activities</Link>
-            <Link to="/contact">Contact Us</Link>
+            <div className="nav-links-main">
+              <Link to="/" className={isActive('/') && location.pathname === '/' ? 'active' : ''}>Home</Link>
+              <Link to="/activities" className={isActive('/activities') ? 'active' : ''}>Activities</Link>
+              {!user && <Link to="/contact" className={isActive('/contact') ? 'active' : ''}>Contact Us</Link>}
+            </div>
             
             {user ? (
               <>
-                <Link to="/booking">Book Trip</Link>
-                <Link to="/dashboard">Dashboard</Link>
-                <Link to="/subscription">Subscription</Link>
-                {user.subscription?.isActive && (
-                  <Link to="/premium-content">Premium</Link>
-                )}
+                <div className="nav-links-main">
+                  <Link to="/booking" className={isActive('/booking') ? 'active' : ''}>Book Trip</Link>
+                  <Link to="/dashboard" className={isActive('/dashboard') ? 'active' : ''}>Dashboard</Link>
+                  <Link to="/subscription" className={isActive('/subscription') ? 'active' : ''}>Subscription</Link>
+                  {user.subscription?.isActive && (
+                    <Link to="/premium-content" className={isActive('/premium-content') ? 'active' : ''}>Premium</Link>
+                  )}
+                  <Link to="/contact" className={isActive('/contact') ? 'active' : ''}>Contact Us</Link>
+                </div>
                 <span className="nav-user">
                   <FaUserAstronaut style={{ marginRight: '6px' }} />
                   {user.name}
@@ -53,12 +66,12 @@ const Navbar = () => {
                 <button onClick={handleLogout} className="btn btn-outline">Logout</button>
               </>
             ) : (
-              <>
-                <Link to="/login">Login</Link>
-                <Link to="/register">
+              <div className="nav-links-auth">
+                <Link to="/login" className={isActive('/login') ? 'active' : ''}>Login</Link>
+                <Link to="/register" className={isActive('/register') ? 'active' : ''}>
                   <button className="btn btn-primary">Sign Up</button>
                 </Link>
-              </>
+              </div>
             )}
           </div>
         </div>
