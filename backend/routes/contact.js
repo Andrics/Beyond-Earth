@@ -26,6 +26,12 @@ router.post('/', [
     });
 
     await contact.save();
+    
+    console.log('Contact saved successfully:', {
+      id: contact._id,
+      name: contact.name,
+      email: contact.email
+    });
 
     res.status(201).json({
       message: 'Your message has been submitted successfully!',
@@ -38,8 +44,8 @@ router.post('/', [
       }
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error' });
+    console.error('Error saving contact:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
 

@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import api from '../services/api';
 import StarsBackground from '../components/StarsBackground';
-import { FaRocket, FaUserAstronaut, FaGem, FaStar } from 'react-icons/fa';
+import { FaRocket, FaUserAstronaut, FaGem, FaStar, FaGlobeAmericas } from 'react-icons/fa';
 import { MdOutlineLandscape } from 'react-icons/md';
 import { GiTargetPoster } from 'react-icons/gi';
 
 const Dashboard = () => {
   const [bookings, setBookings] = useState([]);
+  const [landPurchases, setLandPurchases] = useState([]);
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [nextFlightDate, setNextFlightDate] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -70,9 +71,19 @@ const Dashboard = () => {
     }
   };
 
+  const fetchLandPurchases = async () => {
+    try {
+      const response = await api.get('/land/my-land');
+      setLandPurchases(response.data);
+    } catch (error) {
+      console.error('Error fetching land purchases:', error);
+    }
+  };
+
   // Initial data fetch
   useEffect(() => {
     fetchBookings();
+    fetchLandPurchases();
     fetchCountdown();
   }, [fetchCountdown]);
 
@@ -279,6 +290,120 @@ const Dashboard = () => {
                   >
                     Cancel Booking
                   </button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <h2 className="section-title" style={{ fontSize: '2rem', marginBottom: '30px', marginTop: '60px' }}>
+            <MdOutlineLandscape style={{ marginRight: '10px', verticalAlign: 'middle' }} />
+            My Land Certificates
+          </h2>
+          
+          {landPurchases.length === 0 ? (
+            <div className="card" style={{ textAlign: 'center', padding: '50px' }}>
+              <p style={{ fontSize: '1.2rem', color: '#d0d0d0', marginBottom: '20px' }}>
+                You don't own any land on Mars yet.
+              </p>
+              <Link to="/land-purchase" className="btn btn-primary">Buy Your First Plot</Link>
+            </div>
+          ) : (
+            <div className="grid grid-2">
+              {landPurchases.map(land => (
+                <div key={land._id} className="card" style={{ position: 'relative' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '20px' }}>
+                    <div>
+                      <h3 style={{ color: '#667eea', marginBottom: '10px', textTransform: 'capitalize' }}>
+                        {land.landType} Land
+                      </h3>
+                      <p style={{ color: '#d0d0d0' }}>
+                        Size: {land.size} sq km
+                      </p>
+                      <p style={{ color: '#f093fb', fontSize: '1.2rem', fontWeight: 'bold', marginTop: '10px' }}>
+                        ${land.price.toLocaleString()}
+                      </p>
+                    </div>
+                    <span
+                      style={{
+                        padding: '5px 15px',
+                        borderRadius: '20px',
+                        background: '#66bb6a30',
+                        color: '#66bb6a',
+                        fontWeight: 'bold',
+                        fontSize: '0.9rem'
+                      }}
+                    >
+                      {land.status.toUpperCase()}
+                    </span>
+                  </div>
+                  
+                  {land.ownershipCertificate && (
+                    <div style={{ 
+                      marginTop: '20px', 
+                      padding: '20px', 
+                      background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(240, 147, 251, 0.15) 100%)',
+                      borderRadius: '12px',
+                      border: '1px solid rgba(240, 147, 251, 0.3)',
+                      position: 'relative'
+                    }}>
+                      <div style={{ 
+                        position: 'absolute', 
+                        top: '10px', 
+                        right: '10px', 
+                        fontSize: '2rem', 
+                        opacity: 0.2,
+                        color: '#f093fb'
+                      }}>
+                        <MdOutlineLandscape />
+                      </div>
+                      <strong style={{ color: '#f093fb', display: 'block', marginBottom: '15px', fontSize: '1.1rem' }}>
+                        🏆 Ownership Certificate
+                      </strong>
+                      <div style={{ marginBottom: '12px' }}>
+                        <span style={{ color: '#b0b0b0', fontSize: '0.85rem' }}>Certificate #:</span>
+                        <p style={{ color: '#ffffff', fontSize: '1rem', fontWeight: '600', marginTop: '3px' }}>
+                          {land.ownershipCertificate.certificateNumber}
+                        </p>
+                      </div>
+                      <div style={{ marginBottom: '12px' }}>
+                        <span style={{ color: '#b0b0b0', fontSize: '0.85rem' }}>Issued:</span>
+                        <p style={{ color: '#d0d0d0', fontSize: '0.95rem', marginTop: '3px' }}>
+                          {formatDate(land.ownershipCertificate.issueDate)}
+                        </p>
+                      </div>
+                      <div style={{ marginBottom: '5px' }}>
+                        <span style={{ color: '#b0b0b0', fontSize: '0.85rem' }}>Registration:</span>
+                        <p style={{ color: '#e0e0e0', fontSize: '0.9rem', marginTop: '3px', lineHeight: '1.5' }}>
+                          {land.ownershipCertificate.registrationDetails}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {land.coordinates && (
+                    <div style={{ 
+                      marginTop: '15px', 
+                      padding: '12px', 
+                      background: 'rgba(102, 126, 234, 0.1)', 
+                      borderRadius: '8px' 
+                    }}>
+                      <strong style={{ color: '#667eea', fontSize: '0.9rem', display: 'block', marginBottom: '5px' }}>
+                        <FaGlobeAmericas style={{ marginRight: '5px' }} />
+                        Location:
+                      </strong>
+                      <p style={{ color: '#d0d0d0', fontSize: '0.85rem', marginTop: '5px' }}>
+                        {land.mapLocation || `Lat: ${land.coordinates.latitude?.toFixed(4)}°, Long: ${land.coordinates.longitude?.toFixed(4)}°`}
+                      </p>
+                    </div>
+                  )}
+                  
+                  <Link 
+                    to="/land-purchase" 
+                    className="btn btn-outline"
+                    style={{ marginTop: '15px', width: '100%', textAlign: 'center', display: 'block' }}
+                  >
+                    View All Land Purchases
+                  </Link>
                 </div>
               ))}
             </div>

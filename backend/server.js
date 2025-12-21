@@ -20,8 +20,13 @@ app.use('/api/content', require('./routes/content'));
 app.use('/api/contact', require('./routes/contact'));
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/beyond-earth')
-.then(() => console.log('MongoDB Connected'))
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/beyond-earth';
+console.log('Connecting to MongoDB:', mongoURI.replace(/\/\/[^:]+:[^@]+@/, '//***:***@')); // Hide password
+mongoose.connect(mongoURI)
+.then(() => {
+  console.log('MongoDB Connected');
+  console.log('Database name:', mongoose.connection.db.databaseName);
+})
 .catch(err => console.error('MongoDB connection error:', err));
 
 const PORT = process.env.PORT || 5000;

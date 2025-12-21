@@ -54,6 +54,41 @@ A full-stack web application for booking space trips to Mars and exploring the u
 - MongoDB (local or MongoDB Atlas)
 - npm or yarn
 
+### 🐳 Docker Deployment (Recommended)
+
+For easy deployment and consistent environments, use Docker:
+
+1. **Install Docker**: https://www.docker.com/get-started
+
+2. **Create `.env` file** in the root directory:
+```env
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/beyond-earth
+JWT_SECRET=your-super-secret-jwt-key
+STRIPE_SECRET_KEY=sk_test_your_stripe_test_key
+FRONTEND_URL=http://localhost:3000
+REACT_APP_API_URL=http://localhost:5000/api
+```
+
+3. **Build and start**:
+```bash
+docker-compose up --build
+```
+
+4. **Seed database** (optional):
+```bash
+docker-compose run --rm backend node seed.js
+```
+
+5. **Access**:
+   - Frontend: http://localhost:3000
+   - Backend: http://localhost:5000
+
+📖 **For detailed Docker instructions**, see [DOCKER_SETUP.md](./DOCKER_SETUP.md)
+
+---
+
+### Manual Installation (Without Docker)
+
 ### Backend Setup
 
 1. Navigate to the backend directory:
