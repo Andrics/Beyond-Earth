@@ -145,30 +145,40 @@ const Subscription = () => {
 
           <div className="grid grid-3">
             {plans.map(plan => (
-              <div key={plan.id} className="card subscription-card">
-                <h3 style={{ marginBottom: '10px', color: '#f093fb' }}>{plan.name}</h3>
-                <div style={{ marginBottom: '20px' }}>
-                  <span style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#667eea' }}>
-                    ${plan.price}
-                  </span>
-                  <span style={{ color: '#b0b0b0', marginLeft: '10px' }}>/{plan.duration}</span>
+              <div 
+                key={plan.id} 
+                className="card subscription-card"
+                style={{ 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  height: '100%' 
+                }}
+              >
+                <div style={{ flexGrow: 1 }}>
+                  <h3 style={{ marginBottom: '10px', color: '#f093fb' }}>{plan.name}</h3>
+                  <div style={{ marginBottom: '20px' }}>
+                    <span style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#667eea' }}>
+                      ${plan.price}
+                    </span>
+                    <span style={{ color: '#b0b0b0', marginLeft: '10px' }}>/{plan.duration}</span>
+                  </div>
+                  <ul style={{ listStyle: 'none', padding: 0, marginBottom: '30px', textAlign: 'left' }}>
+                    {plan.features.map((feature, idx) => (
+                      <li key={idx} style={{ padding: '8px 0', color: '#e0e0e0' }}>
+                        ✓ {feature}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <ul style={{ listStyle: 'none', padding: 0, marginBottom: '30px', textAlign: 'left' }}>
-                  {plan.features.map((feature, idx) => (
-                    <li key={idx} style={{ padding: '8px 0', color: '#e0e0e0' }}>
-                      ✓ {feature}
-                    </li>
-                  ))}
-                </ul>
                 {isActive && subscriptionStatus.plan === plan.id ? (
-                  <button className="btn btn-primary" disabled style={{ width: '100%' }}>
+                  <button className="btn btn-primary" disabled style={{ width: '100%', marginTop: 'auto' }}>
                     Current Plan
                   </button>
                 ) : (
                   <button
                     onClick={() => handleSubscribe(plan.id)}
                     className="btn btn-primary"
-                    style={{ width: '100%' }}
+                    style={{ width: '100%', marginTop: 'auto' }}
                     disabled={processing || isActive}
                   >
                     {processing ? 'Processing...' : isActive ? 'Upgrade' : 'Subscribe'}
