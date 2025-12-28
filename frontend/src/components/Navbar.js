@@ -53,6 +53,9 @@ const Navbar = () => {
                 <div className="nav-links-main">
                   <Link to="/booking" className={isActive('/booking') ? 'active' : ''}>Book Trip</Link>
                   <Link to="/dashboard" className={isActive('/dashboard') ? 'active' : ''}>Dashboard</Link>
+                  {user.role === 'admin' && (
+                    <Link to="/admin" className={isActive('/admin') ? 'active' : ''}>Admin</Link>
+                  )}
                   <Link to="/subscription" className={isActive('/subscription') ? 'active' : ''}>Subscription</Link>
                   {user.subscription?.isActive && (
                     <Link to="/premium-content" className={isActive('/premium-content') ? 'active' : ''}>Premium</Link>

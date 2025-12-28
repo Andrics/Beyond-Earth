@@ -39,9 +39,16 @@ services:
       - JWT_SECRET=${JWT_SECRET}
       - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
       - FRONTEND_URL=${FRONTEND_URL:-http://localhost:3000}
+      # Admin user credentials (optional - defaults provided in seed script)
+      - ADMIN_EMAIL=${ADMIN_EMAIL:-admin@beyondearth.com}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin123456}
+      - ADMIN_NAME=${ADMIN_NAME:-Admin User}
     restart: unless-stopped
     networks:
       - beyond-earth-network
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
     depends_on:
       mongodb:
         condition: service_healthy
@@ -67,12 +74,16 @@ services:
     networks:
       - beyond-earth-network
     depends_on:
-      backend:
-        condition: service_healthy
+      - backend
 
 networks:
   beyond-earth-network:
     driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ipv6: "false"
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
 
 volumes:
   # Named volume for MongoDB data persistence

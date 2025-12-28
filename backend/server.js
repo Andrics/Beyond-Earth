@@ -18,6 +18,7 @@ app.use('/api/subscriptions', require('./routes/subscriptions'));
 app.use('/api/land', require('./routes/land'));
 app.use('/api/content', require('./routes/content'));
 app.use('/api/contact', require('./routes/contact'));
+app.use('/api/admin', require('./routes/admin'));
 
 // MongoDB Connection
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/beyond-earth';

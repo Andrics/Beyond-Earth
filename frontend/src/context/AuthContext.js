@@ -11,7 +11,9 @@ export const AuthProvider = ({ children }) => {
   const fetchUser = useCallback(async () => {
     try {
       const response = await api.get('/auth/me');
-      setUser(response.data);
+      const userData = response.data;
+      setUser(userData);
+      // If admin tries to access regular dashboard, redirect will happen via PrivateRoute
     } catch (error) {
       console.error('Error fetching user:', error);
       logout();
@@ -39,7 +41,7 @@ export const AuthProvider = ({ children }) => {
       api.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
       setUser(userData);
       
-      return { success: true };
+      return { success: true, user: userData };
     } catch (error) {
       return {
         success: false,
@@ -58,7 +60,7 @@ export const AuthProvider = ({ children }) => {
       api.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
       setUser(userData);
       
-      return { success: true };
+      return { success: true, user: userData };
     } catch (error) {
       return {
         success: false,

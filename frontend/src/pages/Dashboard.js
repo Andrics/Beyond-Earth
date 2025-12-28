@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import api from '../services/api';
 import StarsBackground from '../components/StarsBackground';
@@ -13,7 +13,15 @@ const Dashboard = () => {
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [nextFlightDate, setNextFlightDate] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { user } = useContext(AuthContext);
+  const { user, loading: userLoading } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  // Redirect admins to admin dashboard immediately
+  useEffect(() => {
+    if (!userLoading && user && user.role === 'admin') {
+      navigate('/admin', { replace: true });
+    }
+  }, [user, userLoading, navigate]);
 
   // Define calculateCountdown first using useCallback
   const calculateCountdown = useCallback((targetDate) => {
@@ -130,7 +138,12 @@ const Dashboard = () => {
     }
   };
 
-  if (loading) {
+  // Don't render if user is admin (redirect will happen)
+  if (user && user.role === 'admin') {
+    return null;
+  }
+
+  if (loading || userLoading) {
     return (
       <div className="loading">
         <div className="spinner"></div>
